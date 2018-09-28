@@ -1,9 +1,12 @@
 const request = require('request');
 const cheerio = require('cheerio');
 const webhook = require('webhook-discord');
-const Scrape = require('./scrape');
 
-const Hook = new webhook('https://discordapp.com/api/webhooks/494929110980755468/eFqcXgDODpSC0IuGTq0IcLCd7jcQ6Zlk1bLKQbyKybl1cQ6Iwyy6PhbJiIIOGrhoq6mT');
+const settings = require('./settings');
+
+// sconst Hook = new webhook('https://discordapp.com/api/webhooks/494929110980755468/eFqcXgDODpSC0IuGTq0IcLCd7jcQ6Zlk1bLKQbyKybl1cQ6Iwyy6PhbJiIIOGrhoq6mT');
+const Hook = new webhook(settings.webhook);
+
 
 const url = 'https://www.supremecommunity.com';
 const base_url = 'https://www.supremecommunity.com/season/fall-winter2018/droplists/'; // Technically this is not static, as it will have to change with new seasons.
@@ -44,15 +47,14 @@ get_latest(base_url, function(result) {
                 callback(false);
             }
 
-            // console.log(items)
         })
     };
     get_items(new_url, function(items) {
         items.sort();
         //Hook.custom("Supreme Community","This is what is dropping this week :D" + '\n' + "`Made by Sunstro`", "Information", "#ecee0f"); //Doesn't work properly unless I switch to Asnyc
         for (let item of items) {
-            console.log(item + '\n' + "Info provided by Supreme Community");
-            Hook.custom("Supreme Community", item + '\n' + "`Info provided by Supreme Community`", "----| Item |----", "#ff0000");
+            console.log(item + '\n');
+            Hook.custom("Supreme Community","**Product**"+ '\n' + item + '\n' + '\n' + "`Info provided by Supreme Community, linked below`" + '\n' + new_url, "SupCom WebHook", "#ff0000");
           }
     });
 
