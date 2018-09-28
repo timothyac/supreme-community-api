@@ -2,9 +2,10 @@
   "name": "supcom_pull",
   "version": "0.1.0",
   "description": "Requests latest droplist from SupremeCommunity",
-  "main": "index.js",
+  "main": "scrape.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run" : "node scrape.js"
   },
   "repository": {
     "type": "git",
