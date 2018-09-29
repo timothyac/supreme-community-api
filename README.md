@@ -1,4 +1,4 @@
-# Supreme Community Latest Drop (Discord webhook)
+# Supreme Community tool (Discord webhook)
 
 ### Setup (for development)
 
@@ -11,7 +11,8 @@ Open settings.json and add your discord webhook!!!
 ```sh
 > git clone https://github.com/Aus10Caron/supcom_pull.git
 > npm install
-> node scrape
+> node scrape.js //Runs Latest Drop
+> mpde sellOut.js //Runs Sellout times (experimental)
 ```
 
 ## License
