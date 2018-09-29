@@ -37,37 +37,19 @@ get_latest(base_url, function(result) {
         request(new_url, (error, response, html) => {
             if(!error) {
                 var $ = cheerio.load(html);
-                const items = []
+                const images = []
                 const names = []
                 const prices = []
-                // var itemCard =$('.card-details').map(function(i,e) {
-                //     items[i] = $(this).text().replace(/\n/g,'').replace(/\s\s+/g, '').replace(/\$/g, ' -- $');
-                // });
 
                 var itemCard = $('.card-details').each((i, el) => {
                     names[i] = $(el).attr('data-itemname');
                     prices[i] = $(el).find(".label-price").text().trim().replace('{}', '');
+                    images[i] = $(el).find('img').attr('src');
 
-                    // console.log(price);
                 });
-
-                if(names.length === prices.length) {
-                    var nameObj = Object.assign({}, names);
-                    var priceObj = Object.assign({}, prices);
-
-                    console.log(nameObj);
-                    console.log(priceObj);
-
-                    //var itemListObj = merge.all([nameObj, priceObj]);
-                    //console.log(itemListObj)
-
-                } else {
-                    console.log(error)
-                }
-                
-
-                //items.join(', ');
-                callback(items)
+                names.join(', ');
+                prices.join(', ');
+                callback(names, prices, images);
             } else {
                 console.log(error);
                 callback(false);
@@ -75,16 +57,16 @@ get_latest(base_url, function(result) {
 
         })
     };
-    get_items(new_url, function(items) {
-        items.sort();
-
-        const item_list = Object.assign({}, items);
-        console.log(item_list)
+    get_items(new_url, function(names, prices, images) {
         //Hook.custom("Supreme Community","This is what is dropping this week :D" + '\n' + "`Made by Sunstro`", "Information", "#ecee0f"); //Doesn't work properly unless I switch to Asnyc
-        for (let item of items) {
-            //console.log(item + '\n');
-            //Hook.custom("Supreme Community","**Product**"+ '\n' + item + '\n' + '\n' + "`Info provided by Supreme Community, linked below`" + '\n' + new_url, "SupCom WebHook", "#ff0000");
-          }
+        
+        if(names.length === prices.length) {
+            var nV;
+            for(nV = 0; nV < names.length; nV++) {
+                var new_image = url + images[nV]
+                Hook.custom("Supreme Community","**Product**"+ '\n' + names[nV] + '\n' + "**Price**" + '\n' + prices[nV] + '\n' + '\n' + "`Info provided by Supreme Community, linked below`" + '\n' + new_url, "SupCom WebHook", "#ff0000", new_image);
+            }
+        }
     });
 
 });
