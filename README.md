@@ -14,11 +14,6 @@ Open settings.json and add your discord webhook
 > node scrape
 ```
 
-### Who
-
-Coded by <a href="https://twitter.com/sunstrous">@sunstrous</a>.
-
-
 ## License
 
 ```
