@@ -1,7 +1,6 @@
 const request = require('request');
 const cheerio = require('cheerio');
 const webhook = require('webhook-discord');
-const merge = require('deepmerge')
 
 const settings = require('./settings');
 
@@ -42,7 +41,7 @@ get_latest(base_url, function(result) {
 
                 var itemCard = $('.card-details').each((i, el) => {
                     names[i] = $(el).attr('data-itemname');
-                    prices[i] = $(el).find(".label-price").text().trim().replace('{}', '');
+                    prices[i] = $(el).find(".label-price").text().trim();
                     images[i] = $(el).find('img').attr('src');
 
                 });

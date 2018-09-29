@@ -19,7 +19,6 @@
   "homepage": "https://github.com/Aus10Caron/supcom_pull#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
-    "deepmerge": "^2.1.1",
     "request": "^2.88.0",
     "webhook-discord": "^2.3.0"
   }
