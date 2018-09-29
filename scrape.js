@@ -5,12 +5,11 @@ const merge = require('deepmerge')
 
 const settings = require('./settings');
 
-// sconst Hook = new webhook('https://discordapp.com/api/webhooks/494929110980755468/eFqcXgDODpSC0IuGTq0IcLCd7jcQ6Zlk1bLKQbyKybl1cQ6Iwyy6PhbJiIIOGrhoq6mT');
 const Hook = new webhook(settings.webhook);
 
 
 const url = 'https://www.supremecommunity.com';
-const base_url = 'https://www.supremecommunity.com/season/fall-winter2018/droplists/'; // Technically this is not static, as it will have to change with new seasons.
+const base_url = 'https://www.supremecommunity.com/season/latest/droplists/';
 
 const get_latest = (base_url, callback) => {
     request(base_url, (error, response, html) => {

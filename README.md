@@ -6,7 +6,7 @@ Supcom_pull requires [Node.js](http://nodejs.org/).
 
 How to run:
 
-Open settings.json and add your discord webhook
+Open settings.json and add your discord webhook!!!
 
 ```sh
 > git clone https://github.com/Aus10Caron/supcom_pull.git
