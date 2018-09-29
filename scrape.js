@@ -63,7 +63,7 @@ get_latest(base_url, function(result) {
             var nV;
             for(nV = 0; nV < names.length; nV++) {
                 var new_image = url + images[nV]
-                Hook.custom("Supreme Community","**Product**"+ '\n' + names[nV] + '\n' + "**Price**" + '\n' + prices[nV] + '\n' + '\n' + "`Info provided by Supreme Community, linked below`" + '\n' + new_url, "SupCom WebHook", "#ff0000", new_image);
+                Hook.custom("Supreme Community","**Product**"+ '\n' + names[nV] + '\n' + "**Price**" + '\n' + prices[nV] + '\n', "SupCom WebHook", "#ff0000", new_image);
             }
         }
     });
