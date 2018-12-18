@@ -12,7 +12,7 @@ Open settings.json and add your discord webhook!!!
 > git clone https://github.com/Aus10Caron/supcom_pull.git
 > npm install
 > node scrape.js //Runs Latest Drop
-> mpde sellOut.js //Runs Sellout times (experimental)
+> node sellOut.js //Runs Sellout times (experimental)
 ```
 
 ## License
