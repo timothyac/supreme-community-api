@@ -1,16 +1,16 @@
-const scraper = require('./scrape')
+const supremeCommunity = require('./scrape')
 
 const webhook = "https://discordapp.com/api/webhooks/524414463491964939/bX6vECM9a7-PNJjVOg2TtEs-vUAX1SlTa3yFJnfIKg4hdDHEz7RHhzaqo9wmcOt0h7cP"
 
 async function start() {
   // Get href
-  let href = await scraper.getLatestWeek()
+  let href = await supremeCommunity.getLatestWeek()
   console.log(href)
   // Pass href into grabNewItems
-  let list = await scraper.grabNewItems(href)
+  let list = await supremeCommunity.grabNewItems(href)
   console.log(list)
   // Pass list into sendToDiscord
-  await scraper.sendToDiscord(list, webhook)
+  await supremeCommunity.sendToDiscord(list, webhook)
   console.log("Done!")
 }
 
