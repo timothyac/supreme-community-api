@@ -1,4 +1,4 @@
-# Supreme Community tool
+# supreme-community-api
 
 ## License
 

@@ -1,5 +1,5 @@
 {
-  "name": "supcom_pull",
+  "name": "supreme-community-api",
   "version": "2.0.0",
   "description": "Requests latest droplist from SupremeCommunity",
   "main": "scrape.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SunstroUS/supcom_pull.git"
+    "url": "git+https://github.com/SunstroUS/supreme-community-api.git"
   },
   "author": "SunstroUS",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/SunstroUS/supcom_pull/issues"
+    "url": "https://github.com/SunstroUS/supreme-community-api/issues"
   },
-  "homepage": "https://github.com/SunstroUS/supcom_pull#readme",
+  "homepage": "https://github.com/SunstroUS/supreme-community-api#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "discord.js": "^11.4.2",
