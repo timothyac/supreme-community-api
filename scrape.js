@@ -1,71 +1,93 @@
-const request = require('request');
-const cheerio = require('cheerio');
-const webhook = require('webhook-discord');
+const cheerio = require("cheerio");
+const rp = require("request-promise");
+const Discord = require('discord.js');
 
-const settings = require('./settings');
+const { asyncForEach } = require('./utils/asyncForEach')
+const { sleep } = require('./utils/sleep')
 
-const Hook = new webhook(settings.webhook);
-
-
-const url = 'https://www.supremecommunity.com';
-const base_url = 'https://www.supremecommunity.com/season/latest/droplists/';
-
-const get_latest = (base_url, callback) => {
-    request(base_url, (error, response, html) => {
-        if(!error && response.statusCode == 200) {
-            var $ = cheerio.load(html);
-            var latest_url = $('.block');
-
-            if(latest_url.is('h2') === false) {
-                callback(latest_url.first().attr('href'));
-            } else {
-                console.log('Tryin again');
-                callback(false);
-            }   
-        } else {
-            console.log(error);
-            callback(false);
-        }           
-    });
+let scraper = {};
+const options = {
+  url: undefined,
+  transform: function(body) {
+    return cheerio.load(body);
+  }
 };
 
-get_latest(base_url, function(result) {
-    var new_url = url + result
-    var get_items = (new_url, callback) => {
-        request(new_url, (error, response, html) => {
-            if(!error) {
-                var $ = cheerio.load(html);
-                const images = []
-                const names = []
-                const prices = []
+scraper.getLatestWeek = function() {
+    options.url = "https://www.supremecommunity.com/season/latest/droplists/"
+    return new Promise (function(resolve, reject) {
+        rp(options).then($ => {
+            // Search for elements with the block class
+            const latestURL = $('.block')
 
-                var itemCard = $('.card-details').each((i, el) => {
-                    names[i] = $(el).attr('data-itemname');
-                    prices[i] = $(el).find(".label-price").text().trim();
-                    images[i] = $(el).find('img').attr('src');
-
-                });
-                names.join(', ');
-                prices.join(', ');
-                callback(names, prices, images);
+            // If the element isn't a header, then resolve it
+            if(!latestURL.is('h2')) {
+                const href = (latestURL.first().attr('href'))
+                resolve(href)
             } else {
-                console.log(error);
-                callback(false);
+                reject("Couldn't find link")
             }
-
         })
-    };
-    get_items(new_url, function(names, prices, images) {
-        //Hook.custom("Supreme Community","This is what is dropping this week :D" + '\n' + "`Made by Sunstro`", "Information", "#ecee0f"); //Doesn't work properly unless I switch to Asnyc
-        
-        if(names.length === prices.length) {
-            var nV;
-            for(nV = 0; nV < names.length; nV++) {
-                var new_image = url + images[nV]
-                Hook.custom("Supreme Community","**Product**"+ '\n' + names[nV] + '\n' + "**Price**" + '\n' + prices[nV] + '\n', "SupCom WebHook", "#ff0000", new_image);
+    })
+}
+
+scraper.grabNewItems = function (href) {
+    options.url = `https://www.supremecommunity.com/${href}`
+    return new Promise (function(resolve, reject) {
+        rp(options).then($ => {
+            // Define items as having a card-details class
+            const items = $('.card-details')
+
+            // Array to store items
+            let list = []
+
+            if(items) {
+                items.each((i, el) => {
+                    let obj = {}
+                    // Name of item
+                    obj.name = $(el).attr('data-itemname');
+                    // Code value that Supreme Community gives an item
+                    obj.code = $(el).attr('data-itemid');
+                    // Price of item
+                    obj.price = $(el).find(".label-price").text().trim();
+                    // Image Href of item
+                    let imageURL = $(el).find('img').attr('src');
+                    obj.image = `https://www.supremecommunity.com${imageURL}`
+
+                    list.push(obj)
+                })
+                resolve(list)
+            } else {
+                reject("Couldn't find any items")
             }
-        }
-    });
+        })
+    })
+}
 
-});
+scraper.sendToDiscord = function (list, webhook) {
+    // Chop up the user's webhook
+    const tokenAndID = webhook.slice(36).split('/')
 
+    // Attach webhook to a new webhookClient
+    const client = new Discord.WebhookClient(tokenAndID[0], tokenAndID[1])
+
+    // Loop through each item in the list
+    asyncForEach(list, async item => {
+        
+        // Build webhook embed
+        const embed = await new Discord.RichEmbed()
+        .setAuthor(item.name)
+        .setFooter("Supreme Community API")
+        .setTimestamp()
+        .setImage(item.image)
+        .setColor("#F00000")
+
+        // Send to server
+        await client.send(embed)
+        
+        // Sleep for 1.5 sec, that way discord doesn't rate limit
+        await sleep(1500)
+    })
+}
+
+module.exports = scraper

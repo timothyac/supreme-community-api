@@ -1,25 +1,25 @@
 {
   "name": "supcom_pull",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "description": "Requests latest droplist from SupremeCommunity",
   "main": "scrape.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "run": "node scrape.js"
+    "run-example": "node example.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Aus10Caron/supcom_pull.git"
+    "url": "git+https://github.com/SunstroUS/supcom_pull.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "SunstroUS",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Aus10Caron/supcom_pull/issues"
+    "url": "https://github.com/SunstroUS/supcom_pull/issues"
   },
-  "homepage": "https://github.com/Aus10Caron/supcom_pull#readme",
+  "homepage": "https://github.com/SunstroUS/supcom_pull#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
+    "discord.js": "^11.4.2",
     "request": "^2.88.0",
-    "webhook-discord": "^2.3.0"
+    "request-promise": "^4.2.4"
   }
 }
