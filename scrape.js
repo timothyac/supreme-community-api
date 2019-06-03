@@ -32,7 +32,7 @@ scraper.getLatestWeek = function() {
 };
 
 scraper.grabNewItems = function(href) {
-  options.url = `https://www.supremecommunity.com/season/spring-summer2019/droplist/2019-05-30/`;
+  options.url = `https://www.supremecommunity.com/${href}`;
   return new Promise(function(resolve, reject) {
     rp(options).then($ => {
       // Define items as having a card-details class
