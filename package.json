@@ -1,6 +1,6 @@
 {
   "name": "supreme-community-api",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "Requests latest droplist from SupremeCommunity",
   "main": "scrape.js",
   "scripts": {
@@ -22,5 +22,8 @@
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
   },
-  "keywords": ["supreme", "supreme-community"]
+  "keywords": [
+    "supreme",
+    "supreme-community"
+  ]
 }
