@@ -36,7 +36,7 @@ scraper.grabNewItems = function(href) {
   return new Promise(function(resolve, reject) {
     rp(options).then($ => {
       // Define items as having a card-details class
-      const items = $(".card-details");
+      const items = $(".card.card-2");
 
       // Array to store items
       let list = [];
@@ -44,6 +44,8 @@ scraper.grabNewItems = function(href) {
       if (items) {
         items.each((i, el) => {
           let obj = {};
+          // Give ID
+          obj.id = i + 1;
           // Name of item
           obj.name = $(el)
             .find("h2")
@@ -60,6 +62,16 @@ scraper.grabNewItems = function(href) {
             .find("img")
             .attr("src");
           obj.image = `https://www.supremecommunity.com${imageURL}`;
+          // Description of item
+          let description = $(el)
+            .find("img")
+            .attr("alt");
+          obj.description = description.split(" - ")[1];
+          // Category of item
+          let category = $(el)
+            .find(".category")
+            .text();
+          obj.category = category;
 
           list.push(obj);
         });
