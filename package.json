@@ -1,6 +1,6 @@
 {
   "name": "supreme-community-api",
-  "version": "2.1.1",
+  "version": "3.0.0",
   "description": "Requests latest droplist from SupremeCommunity",
   "main": "index.js",
   "scripts": {
