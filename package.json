@@ -30,6 +30,7 @@
     "dist/**/*"
   ],
   "devDependencies": {
+    "@types/cheerio": "^0.22.22",
     "@types/request-promise": "^4.1.46",
     "typescript": "^4.0.5"
   }
