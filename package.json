@@ -2,7 +2,8 @@
   "name": "supreme-community-api",
   "version": "3.0.0",
   "description": "Requests latest droplist from SupremeCommunity",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "run-example": "node test.js",
     "build": "npx tsc"
