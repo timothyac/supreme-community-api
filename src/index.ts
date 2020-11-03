@@ -11,6 +11,15 @@ const options = (url: string) => ({
   },
 });
 
+interface Item {
+  id: number;
+  name: string;
+  price: string;
+  image: string;
+  description: string;
+  category: string;
+}
+
 /**
  * Get the latest week of the current season
  *
