@@ -16,10 +16,19 @@ const options = (url: string) => ({
  *
  * @returns {string} The url of the most recent season
  */
-const getLatestWeek = async (): Promise<string> => {
+const getLatestWeek = async (weekNumber?: number): Promise<string> => {
   const $ = await rp(options(latestSeason));
 
-  const path = $("a.block").first().attr("href");
+  const paths = $("a.block");
+
+  const weeks: string[] = [];
+
+  paths.each((i: number, el: Element) => {
+    if (i === 1) return;
+    weeks.push($(el).attr("href"));
+  });
+
+  const path = weekNumber ? weeks.reverse()[weekNumber - 1] : weeks[0];
 
   return `https://www.supremecommunity.com/${path}`;
 };
@@ -60,12 +69,12 @@ const getItems = async (latestWeek: string): Promise<Item[]> => {
  *
  * @returns {array} Array of all the items in the latest week
  */
-const scrape = async () => {
-  const latestWeek = await getLatestWeek();
+const scrape = async (weekNumber?: number) => {
+  const latestWeek = await getLatestWeek(weekNumber);
 
   const latestItems = await getItems(latestWeek);
 
   return latestItems;
 };
 
-module.exports = scrape;
+export { getLatestWeek, getItems, scrape };
