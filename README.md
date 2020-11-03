@@ -9,9 +9,9 @@
 ### Usage (Promises)
 
 ```javascript
-const supremeCommunity = require("supreme-community-api");
+const { scrape } = require("supreme-community-api");
 
-supremeCommunity()
+scrape()
   .then((items) => console.log(items)) // [{name: 'Box Logo', price: '$50', image: 'http://'}, ...]
   .catch((err) => console.log(err));
 ```
@@ -19,10 +19,10 @@ supremeCommunity()
 ### Usage (Async/Await)
 
 ```javascript
-const supremeCommunity = require("supreme-community-api");
+const { scrape } = require("supreme-community-api");
 
 async function init() {
-  const items = await supremeCommunity();
+  const items = await scrape();
 
   console.log(items); // [{name: 'Box Logo', price: '$50', image: 'http://'}, ...]
 }
