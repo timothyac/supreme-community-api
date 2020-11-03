@@ -61,3 +61,6 @@ typings/
 .next
 
 example.js
+
+# compiled files
+dist/

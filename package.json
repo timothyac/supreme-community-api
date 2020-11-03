@@ -4,7 +4,8 @@
   "description": "Requests latest droplist from SupremeCommunity",
   "main": "index.js",
   "scripts": {
-    "run-example": "node test.js"
+    "run-example": "node test.js",
+    "build": "npx tsc"
   },
   "repository": {
     "type": "git",
@@ -24,5 +25,12 @@
   "keywords": [
     "supreme",
     "supreme-community"
-  ]
+  ],
+  "files": [
+    "dist/**/*"
+  ],
+  "devDependencies": {
+    "@types/request-promise": "^4.1.46",
+    "typescript": "^4.0.5"
+  }
 }
